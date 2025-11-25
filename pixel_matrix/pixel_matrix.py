@@ -28,10 +28,9 @@ class PixelMatrix:
         pygame.init()
 
         self.__pixel_size = kwargs.pop("pixel_size", 1)
-        self.__pixel_shape = kwargs.pop("pixel_shape", self.PIXEL_SHAPE_SQUARE)
+        self.__pixel_shape = kwargs.pop("pixel_shape", self.PIXEL_SHAPE_SQUARE).lower()
         self.__pixel_spacing = kwargs.pop("pixel_spacing", 0)
 
-        # TODO: calc based on size, spacing, etc
         self.__width = kwargs.pop("width", self.DEFAULT_WIDTH)
         self.__height = kwargs.pop("height", self.DEFAULT_HEIGHT)
 
@@ -44,6 +43,7 @@ class PixelMatrix:
 
 
         print(f"Surface ({surface_width}x{surface_height})")
+        print(f"Pixel ({self.width},{self.height})")
         self.__surface = pygame.display.set_mode(
             (surface_width, surface_height)
         )
@@ -67,11 +67,14 @@ class PixelMatrix:
         if self.__pixel_size > 1:
             match self.__pixel_shape:
                 case self.PIXEL_SHAPE_CIRCLE:
-                    cx = px
-                    cy = py
+                    offset = self.__pixel_size / 2
+
+                    cx = (px * self.__pixel_size) + offset + (px * self.__pixel_spacing)
+                    cy = (py * self.__pixel_size) + offset + (py * self.__pixel_spacing)
+
                     pygame.draw.circle(
                         self.__surface, color,
-                        (cx,cy), self.__pixel_size / 2
+                        (cx, cy), self.__pixel_size / 2
                     )
                 case self.PIXEL_SHAPE_SQUARE:
                     rx = (px * self.__pixel_size) + (px * self.__pixel_spacing)

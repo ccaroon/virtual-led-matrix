@@ -14,6 +14,20 @@ class Program(ABC):
         return self.__matrix
 
 
+    def on_mouse_down(self, position):
+        """ Event Handler for Mouse Down """
+        pass
+
+
+    def wait_for(self, event_type):
+        while (event := pygame.event.wait()).type != event_type:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                # pygame.event.post(
+                #     pygame.event.Event(pygame.QUIT))
+                # return
+
+
     @abstractmethod
     def loop(self, pixel_matrix):
         """  Your PixelMatrix Program's main loop. """
@@ -26,6 +40,9 @@ class Program(ABC):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    self.on_mouse_down(pos)
 
             self.loop()
 
