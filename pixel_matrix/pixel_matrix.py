@@ -6,24 +6,34 @@ class PixelMatrix:
 
     PIXEL_SHAPE_SQUARE = "square"
     PIXEL_SHAPE_CIRCLE = "circle"
+    VALID_PIXEL_SHAPES = (
+        PIXEL_SHAPE_CIRCLE,
+        PIXEL_SHAPE_SQUARE
+    )
 
     def __init__(self, **kwargs):
         """
-        Origin:
-            The Pixel Matrix's origin is at the top-left (0,0). The bottom-right
-            is located at (width,height).
+        Simulate a physical LED Matrix with Pixels.
+
+        The Pixel Matrix's origin is at the top-left (0,0). The bottom-right
+        is located at (width, height).
+
+
+        => virtual-led-matrix
+
 
         Args:
+            N/A
 
         KWArgs:
             width (int): Width of matrix in pixels
             height (int): Height of matrix in pixels
-            title (str): Title for the Graphix Window
+            title (str): Title for the Pixel Matrix Window
             pixel_size (int): The size of each pixel. Default: 1
             pizel_spacing (int): The spacing between pixels. Default: 0
             pixel_shape (str): PIXEL_SHAPE_(SQUARE|CIRCLE). Default: SQUARE
 
-        NOTE: Pixel Size == 1 for any shape pixel => Single Dot
+        NOTE: Pixel Size == 1 for any shape pixel => Single screen pixel
         """
         pygame.init()
 
@@ -51,15 +61,22 @@ class PixelMatrix:
 
     @property
     def width(self):
+        """ Pixel Matrix's width in Pixels """
         return self.__width
 
 
     @property
     def height(self):
+        """ Pixel Matrix's height in Pixels """
         return self.__height
 
 
     def set_background(self, color):
+        """
+        Set the background color
+
+        NOTE: Does not turn on each pixel
+        """
         self.__surface.fill(color)
 
 
@@ -86,15 +103,12 @@ class PixelMatrix:
                             self.__pixel_size, self.__pixel_size
                         )
                     )
-                    # print(f"[{rx},{ry}]")
                 case _:
                     raise ValueError(f"Unsupported value for pixel_shape: [{self.__pixel_shape}]")
         else:
-            self.__surface.set_at((px, py), color)
-
-
-    def line(self, start_pos, end_pos, color):
-        pygame.draw.line(self.__surface, color, start_pos, end_pos)
+            x = px + (px * self.__pixel_spacing)
+            y = py + (py * self.__pixel_spacing)
+            self.__surface.set_at((x, y), color)
 
 
     def update(self):
