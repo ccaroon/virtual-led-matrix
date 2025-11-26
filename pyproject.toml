@@ -3,16 +3,16 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pixel_matrix"
+name = "virtual-led-matrix"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = ["pygame ~= 2.6"]
 
 [tool.hatch.version]
-path = "pixel_matrix/version.py"
+path = "led_matrix/version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = ["/docs"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["pixel_matrix"]
+packages = ["led_matrix"]

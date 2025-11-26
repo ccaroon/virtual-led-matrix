@@ -1,5 +1,5 @@
-# pixel-matrix
-Simulate an LED Matrix with Pixels.
+# virtual-led-matrix
+An LED Matrix Simulator
 
 ## Examples
 See the [`examples` directory](./examples/)

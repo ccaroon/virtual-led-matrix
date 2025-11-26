@@ -2,11 +2,11 @@ import pygame
 
 from abc import ABC, abstractmethod
 
-from pixel_matrix.pixel_matrix import PixelMatrix
+from led_matrix.led_matrix import LEDMatrix
 
 class Program(ABC):
     def __init__(self, **kwargs):
-        self.__matrix = PixelMatrix(**kwargs)
+        self.__matrix = LEDMatrix(**kwargs)
 
 
     @property
@@ -30,7 +30,7 @@ class Program(ABC):
 
     @abstractmethod
     def loop(self, pixel_matrix):
-        """  Your PixelMatrix Program's main loop. """
+        """  Your LEDMatrix Program's main loop. """
 
 
     def execute(self):

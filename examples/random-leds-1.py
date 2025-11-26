@@ -2,17 +2,17 @@
 import pygame
 import random
 
-from pixel_matrix.color import Color
-from pixel_matrix.pixel_matrix import PixelMatrix
+from led_matrix.color import Color
+from led_matrix.led_matrix import LEDMatrix
 
-# Construct a PixelMatrix instance
-matrix = PixelMatrix(
-    title = "Standalone Random Dots",
+# Construct a LEDMatrix instance
+matrix = LEDMatrix(
+    title = "Random LEDs #1",
     width = 1024, height = 768
 )
 
 # Define the event loop. Must interact with pygame directly to get events.
-# Then use the PixelMatrix instance, `matrix`, to draw pixels.
+# Then use the LEDMatrix instance, `matrix`, to control the LEDs.
 run = True
 while run:
     for event in pygame.event.get():
@@ -24,7 +24,7 @@ while run:
 
     color = Color.random()
 
-    matrix.set_pixel(x, y, color)
+    matrix.set_led(x, y, color)
     matrix.update()
 
 matrix.quit()
