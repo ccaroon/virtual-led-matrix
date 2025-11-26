@@ -29,7 +29,7 @@ class Program(ABC):
 
 
     @abstractmethod
-    def loop(self, pixel_matrix):
+    def loop(self, led_matrix):
         """  Your LEDMatrix Program's main loop. """
 
 
@@ -51,7 +51,7 @@ class Program(ABC):
 
     @classmethod
     def exec_func(cls, program_func, **kwargs):
-        """ Execute a function as a Pixel Matrix Program """
+        """ Execute a function as a LED Matrix Program """
         class FuncProgram(Program):
             def loop(self):
                 program_func(self.matrix)
