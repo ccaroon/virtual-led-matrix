@@ -1,5 +1,7 @@
 import pygame
 
+from led_matrix.glyph import Glyph
+
 class LEDMatrix:
     DEFAULT_WIDTH = 1280
     DEFAULT_HEIGHT = 720
@@ -72,6 +74,11 @@ class LEDMatrix:
         return self.__height
 
 
+    def fill(self, color):
+        """ Fill the LED Matrix with the given color """
+        pass
+
+
     def set_background(self, color):
         """
         Set the background color of the LED Matrix.
@@ -129,3 +136,33 @@ class LEDMatrix:
     def quit(self):
         """ Quit the LED Matrix simulation and exit """
         pygame.quit()
+
+
+    def draw_string(self, x, y, msg, color, **kwargs):
+        chars = list(str(msg))
+        spacing = kwargs.get("spacing", 0)
+        for idx, char in enumerate(chars):
+            glyph = Glyph.get(char)
+            # TODO: don't space a space
+            # TODO: not working
+            # if char == " ":
+            #     print(f"_draw_string: char = '{char}'")
+            #     dx = x + (idx * glyph.width)
+            # else:
+            dx = x + (idx * glyph.width) + (spacing * idx)
+            self.draw_glyph(dx, y, glyph, color)
+
+
+    def draw_glyph(self, x, y, glyph, color):
+        black = pygame.Color("black")
+        for data in glyph:
+            led_color = color if data["on"] else black
+            self.set_led(data["x"] + x, data["y"] + y, led_color)
+
+
+
+
+
+
+
+#

@@ -1,1 +1,1 @@
-VERSION = "2025.11.dev1"
+VERSION = "2025.11.dev2"

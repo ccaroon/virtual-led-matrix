@@ -29,7 +29,7 @@ class Program(ABC):
 
 
     @abstractmethod
-    def loop(self, led_matrix):
+    def loop(self):
         """  Your LEDMatrix Program's main loop. """
 
 
