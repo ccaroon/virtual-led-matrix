@@ -32,6 +32,7 @@ class LEDMatrix:
             led_size (int): The size of each LED (in pixels). Default: 1
             led_spacing (int): The spacing between LEDs (in pixels). Default: 0
             led_shape (str): LED_SHAPE_(SQUARE|CIRCLE). Default: SQUARE
+            noframe (bool): If True, window will have no title, border or controls: Default: False
 
         NOTE: The width & height of the GUI Window is dependent upon the LED
               size, shape and spacing.
@@ -55,10 +56,16 @@ class LEDMatrix:
             pygame.display.set_caption(title)
 
 
-        print(f"Surface Dims: ({surface_width}x{surface_height})")
-        print(f"LED Dims: ({self.width},{self.height})")
+        # print(f"Surface Dims: ({surface_width}x{surface_height})")
+        # print(f"LED Dims: ({self.width},{self.height})")
+
+        flags = 0
+        if kwargs.get("noframe", False):
+            flags |= pygame.NOFRAME
+
         self.__surface = pygame.display.set_mode(
-            (surface_width, surface_height)
+            (surface_width, surface_height),
+            flags=flags
         )
 
 
@@ -138,7 +145,7 @@ class LEDMatrix:
         pygame.quit()
 
 
-    def draw_string(self, x, y, msg, color, **kwargs):
+    def display_string(self, x, y, msg, color, **kwargs):
         chars = list(str(msg))
         spacing = kwargs.get("spacing", 0)
         for idx, char in enumerate(chars):
@@ -146,14 +153,14 @@ class LEDMatrix:
             # TODO: don't space a space
             # TODO: not working
             # if char == " ":
-            #     print(f"_draw_string: char = '{char}'")
+            #     print(f"display_str: char = '{char}'")
             #     dx = x + (idx * glyph.width)
             # else:
             dx = x + (idx * glyph.width) + (spacing * idx)
-            self.draw_glyph(dx, y, glyph, color)
+            self.display_glyph(dx, y, glyph, color)
 
 
-    def draw_glyph(self, x, y, glyph, color):
+    def display_glyph(self, x, y, glyph, color):
         black = pygame.Color("black")
         for data in glyph:
             led_color = color if data["on"] else black

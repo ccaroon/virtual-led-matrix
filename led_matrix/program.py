@@ -19,13 +19,24 @@ class Program(ABC):
         pass
 
 
+    def on_key_down(self, key_name, modifier):
+        """
+        Event Handler for Key Down
+
+        Args:
+            key_name (str): The descriptive name of the key pressed. I.e. "q" | "left shift"
+            modifier (int): The code of the modifier key that was pressed along with the key. Alt, Shift, Control, etc.
+
+        See:
+            * https://www.pygame.org/docs/ref/key.html
+        """
+        pass
+
+
     def wait_for(self, event_type):
         while (event := pygame.event.wait()).type != event_type:
             if event.type == pygame.QUIT:
-                pygame.quit()
-                # pygame.event.post(
-                #     pygame.event.Event(pygame.QUIT))
-                # return
+                self.exit()
 
 
     @abstractmethod
@@ -43,10 +54,19 @@ class Program(ABC):
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
                     self.on_mouse_down(pos)
+                elif event.type == pygame.KEYDOWN:
+                    key_name = pygame.key.name(event.key)
+                    # print(f"Key [{event.key}][{key_name}] | Mod [{event.mod}]")
+                    self.on_key_down(key_name, event.mod)
 
             self.loop()
 
         self.matrix.quit()
+
+
+    def exit(self):
+        pygame.event.post(
+            pygame.event.Event(pygame.QUIT))
 
 
     @classmethod

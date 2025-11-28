@@ -12,3 +12,12 @@
 * [led-walker.py](./led-walker.py)
     - A LED Matrix Program that "walks" across the LED Matrix, lighting each LED in turn.
     - Useful for testing different LED colors, shapes, sizes and spacing.
+    - `led-walker.py --help`
+* [display-message.py](./display-message.py)
+    - Display a message on the LED Matrix
+    - `display-message.py "Hello, World!"`
+* [digital-clock.py](./digital-clock.py)
+    - Display a digital clock on the LED Matrix
+    - Uses the `noframe` option to make the clock window titleless & borderless
+    - Press "Q" to exit.
+    - `digital-clock.py --help`

@@ -17,6 +17,11 @@ class DrawMessage(Program):
         self.__msg = kwargs.get("msg")
 
 
+    def on_key_down(self, key_name, modifier):
+        if key_name in ("q", "Q"):
+            self.exit()
+
+
     def loop(self):
         """
         Display the message, redrawing periodically in a different color
@@ -27,7 +32,7 @@ class DrawMessage(Program):
         """
         color = Color.random()
 
-        self.matrix.draw_string(1, 1, self.__msg, color, spacing=1)
+        self.matrix.display_string(1, 1, self.__msg, color, spacing=1)
 
         self.matrix.update()
         time.sleep(.25)
@@ -43,6 +48,7 @@ if __name__ == "__main__":
 
     program = DrawMessage(
         width=width, height=height,
+        title=args.msg,
         led_size=20,
         led_shape="circle",
         msg=args.msg
