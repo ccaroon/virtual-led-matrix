@@ -21,3 +21,8 @@
     - Uses the `noframe` option to make the clock window titleless & borderless
     - Press "Q" to exit.
     - `digital-clock.py --help`
+* [binary-clock.py](./binary-clock.py)
+    - Display a binary clock on the LED Matrix
+    - Uses the `noframe` option to make the clock window titleless & borderless
+    - Press "Q" to exit.
+    - `binary-clock.py --help`
